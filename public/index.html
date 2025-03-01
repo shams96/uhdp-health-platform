@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UHDP - Universal Health Data Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .bg-primary-500 { background-color: #0066ff; }
+    .bg-primary-600 { background-color: #0052cc; }
+    .bg-primary-700 { background-color: #003d99; }
+    .text-primary-600 { color: #0052cc; }
+    .bg-primary-100 { background-color: #b3d1ff; }
+    .text-primary-700 { color: #003d99; }
+    .border-primary-500 { border-color: #0066ff; }
+    
+    .bg-secondary-500 { background-color: #0ea5e9; }
+    .bg-secondary-600 { background-color: #0284c7; }
+    
+    .bg-blue-500 { background-color: #3b82f6; }
+    .bg-green-500 { background-color: #22c55e; }
+    .bg-purple-500 { background-color: #a855f7; }
+    .bg-amber-500 { background-color: #f59e0b; }
+    
+    .bg-amber-50 { background-color: #fffbeb; }
+    .border-amber-500 { border-color: #f59e0b; }
+    .text-amber-800 { color: #92400e; }
+    .text-amber-700 { color: #b45309; }
+    
+    .bg-green-50 { background-color: #f0fdf4; }
+    .border-green-500 { border-color: #22c55e; }
+    .text-green-800 { color: #166534; }
+    .text-green-700 { color: #15803d; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 h-screen bg-white border-r border-gray-200 flex flex-col">
+      <div class="p-4 border-b border-gray-200">
+        <h1 class="text-xl font-bold text-primary-600">UHDP</h1>
+        <p class="text-sm text-gray-500">Health Data Platform</p>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto py-4 px-3">
+        <nav class="space-y-1">
+          <a href="#dashboard" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-primary-100 text-primary-700">
+            <span class="text-primary-600">📊</span>
+            <span class="font-medium">Dashboard</span>
+          </a>
+          <a href="#map" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-100">
+            <span class="text-gray-500">🗺️</span>
+            <span class="font-medium">Map View</span>
+          </a>
+          <a href="#forms" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-100">
+            <span class="text-gray-500">📝</span>
+            <span class="font-medium">Data Forms</span>
+          </a>
+          <a href="#workers" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-100">
+            <span class="text-gray-500">👥</span>
+            <span class="font-medium">Field Workers</span>
+          </a>
+          <a href="#notifications" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-100">
+            <span class="text-gray-500">🔔</span>
+            <span class="font-medium">Notifications</span>
+          </a>
+          <a href="#settings" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-100">
+            <span class="text-gray-500">⚙️</span>
+            <span class="font-medium">Settings</span>
+          </a>
+        </nav>
+      </div>
+      
+      <div class="p-4 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+              👤
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium">User Profile</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Header -->
+      <header class="bg-white border-b border-gray-200 h-16 flex items-center px-6">
+        <div class="flex-1 flex items-center">
+          <div class="relative w-64">
+            <input
+              type="text"
+              placeholder="Search..."
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+            />
+            <span class="absolute left-3 top-2.5 text-gray-400">🔍</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <button class="p-2 rounded-full hover:bg-gray-100">
+            🔔
+          </button>
+          <button class="p-2 rounded-full hover:bg-gray-100">
+            ❓
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="space-y-6">
+          <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+            <div class="flex space-x-2">
+              <button class="px-3 py-1 rounded-md bg-primary-100 text-primary-700">
+                Week
+              </button>
+              <button class="px-3 py-1 rounded-md bg-white text-gray-600">
+                Month
+              </button>
+              <button class="px-3 py-1 rounded-md bg-white text-gray-600">
+                Year
+              </button>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex items-center">
+                <div class="p-3 rounded-full bg-blue-500 text-white mr-4">
+                  💉
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 font-medium">Polio Vaccinations</p>
+                  <h3 class="text-2xl font-bold">12,584</h3>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex items-center">
+                <div class="p-3 rounded-full bg-green-500 text-white mr-4">
+                  🍎
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 font-medium">Nutrition Assessments</p>
+                  <h3 class="text-2xl font-bold">8,392</h3>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex items-center">
+                <div class="p-3 rounded-full bg-purple-500 text-white mr-4">
+                  💧
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 font-medium">WASH Services</p>
+                  <h3 class="text-2xl font-bold">5,147</h3>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex items-center">
+                <div class="p-3 rounded-full bg-amber-500 text-white mr-4">
+                  ✅
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 font-medium">Compliance Rate</p>
+                  <h3 class="text-2xl font-bold">87.3%</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-lg font-semibold mb-4">Vaccination Trends</h2>
+              <div class="h-80">
+                <canvas id="vaccinationChart"></canvas>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-lg font-semibold mb-4">Recent Alerts</h2>
+              <div class="space-y-4">
+                <div class="p-4 rounded-lg bg-amber-50 border-l-4 border-amber-500">
+                  <div class="flex">
+                    <div class="flex-shrink-0">
+                      ⚠️
+                    </div>
+                    <div class="ml-3">
+                      <h3 class="text-sm font-medium text-amber-800">Low Vaccination Rate</h3>
+                      <div class="mt-2 text-sm text-amber-700">
+                        <p>Sindh province showing 15% decrease in vaccination coverage compared to last month.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-green-50 border-l-4 border-green-500">
+                  <div class="flex">
+                    <div class="flex-shrink-0">
+                      📈
+                    </div>
+                    <div class="ml-3">
+                      <h3 class="text-sm font-medium text-green-800">Improved Compliance</h3>
+                      <div class="mt-2 text-sm text-green-700">
+                        <p>Punjab region showing 12% increase in vaccination acceptance rates.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-amber-50 border-l-4 border-amber-500">
+                  <div class="flex">
+                    <div class="flex-shrink-0">
+                      ⚠️
+                    </div>
+                    <div class="ml-3">
+                      <h3 class="text-sm font-medium text-amber-800">Data Collection Gap</h3>
+                      <div class="mt-2 text-sm text-amber-700">
+                        <p>Missing nutrition data from 3 districts in Balochistan.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-lg font-semibold mb-4">Coverage Map</h2>
+            <div class="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+              <div class="text-center">
+                <p class="text-gray-500">Geographic coverage map visualization</p>
+                <p class="text-gray-400 text-sm">(Interactive map would appear here)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Initialize the vaccination chart
+    const ctx = document.getElementById('vaccinationChart').getContext('2d');
+    const vaccinationChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [
+          {
+            label: 'Polio Vaccinations',
+            data: [1200, 1350, 1100, 1420, 1550, 900, 850],
+            borderColor: 'rgb(59, 130, 246)',
+            backgroundColor: 'rgba(59, 130, 246, 0.5)',
+            tension: 0.3,
+          },
+          {
+            label: 'Nutrition Assessments',
+            data: [800, 950, 750, 1020, 1150, 600, 550],
+            borderColor: 'rgb(34, 197, 94)',
+            backgroundColor: 'rgba(34, 197, 94, 0.5)',
+            tension: 0.3,
+          },
+          {
+            label: 'WASH Services',
+            data: [500, 550, 450, 620, 750, 400, 350],
+            borderColor: 'rgb(168, 85, 247)',
+            backgroundColor: 'rgba(168, 85, 247, 0.5)',
+            tension: 0.3,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Handle navigation
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all links
+        document.querySelectorAll('nav a').forEach(el => {
+          el.classList.remove('bg-primary-100', 'text-primary-700');
+          el.classList.add('text-gray-600', 'hover:bg-gray-100');
+          el.querySelector('span:first-child').classList.remove('text-primary-600');
+          el.querySelector('span:first-child').classList.add('text-gray-500');
+        });
+        
+        // Add active class to clicked link
+        this.classList.remove('text-gray-600', 'hover:bg-gray-100');
+        this.classList.add('bg-primary-100', 'text-primary-700');
+        this.querySelector('span:first-child').classList.remove('text-gray-500');
+        this.querySelector('span:first-child').classList.add('text-primary-600');
+      });
+    });
+  </script>
+</body>
+</html>
